@@ -18,14 +18,11 @@ def get_line_content(filename, line_number):
     line = csv_file.readline()
   return line.split(",")
 
-app = fl.Flask(__name__)
-
-
-
 N3_KANJI_COUNT = count_lines_in_csv('static/N3Kanjies.csv')
 
+app = fl.Flask(__name__)
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET'])
 def home():
     kanji, hiragana, definition, jlpt = get_line_content('static/N3Kanjies.csv', 1)
     question = definition + "\n" + hiragana + "\n" + jlpt
@@ -39,5 +36,4 @@ def submit():
     return fl.jsonify({"question": question, "answer": f"{kanji}", "number": f"{number}", "totalnumber": str(N3_KANJI_COUNT)})
 
 if __name__ == "__main__":
-    N3_KANJI_COUNT = count_lines_in_csv('static/N3Kanjies.csv')
     app.run(port=int(os.environ.get('PORT', 80)), debug=True)
