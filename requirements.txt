@@ -1,7 +1,6 @@
 # Dev environment
 pip
 autopep8
-gunicorn
 
 # App
 flask
