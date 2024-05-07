@@ -1,7 +1,10 @@
 import os
+import sys
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 import flask as fl
 from markupsafe import Markup
-from utilities import count_lines_in_csv, get_line_content
+from src.utilities import count_lines_in_csv, get_line_content
+
 app = fl.Flask(__name__)
 
 N3_KANJI_COUNT = count_lines_in_csv('src/static/N3Kanjies.csv')
@@ -19,11 +22,7 @@ def submit():
     question = definition + "\n" + hiragana + "\n" + jlpt
     return fl.jsonify({"question": question, "answer": f"{kanji}", "number": f"{number}", "totalnumber": str(N3_KANJI_COUNT)})
 
-def main():
-    app.run(port=int(os.environ.get('PORT', 80)), debug=True)
-
-
 if __name__ == "__main__":
     N3_KANJI_COUNT = count_lines_in_csv('src/static/N3Kanjies.csv')
-    
-    main()
+    app.run(port=int(os.environ.get('PORT', 80)), debug=True)
+
