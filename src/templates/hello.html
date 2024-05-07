@@ -1,0 +1,22 @@
+<!doctype html>
+<div class="card">
+  <div id="question" class="question">
+      {{question}}
+  </div>
+</div>
+<div id="answer" class="card" style="background-color: black;">
+  <div  class="answer">
+    {{ answer }}
+  </div>
+</div>
+<form action="/" method="POST" id="submit-form" class="myForm">
+  <input type="button" id="changeButton" value="Show" onclick="toggleBtn()" class="btn">
+  <div style="display:flex; align-items: center; justify-content: center;">
+    <input type="text" name="number" id="number" class="myinput" value="1">
+    <label for="number"> / {{ totalnumber }}</label>
+  </div>
+</form>
+
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+<script src="{{ url_for('static', filename='script.js') }}"></script>
