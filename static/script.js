@@ -19,6 +19,17 @@ function submitForm() {
   const numberDiv = document.getElementById('number');
   const formData = new FormData(document.getElementById('submit-form'));
 
+  radio = document.getElementById('radio-in-order');
+  if(radio.checked){
+    formData.append('radio', 'true');
+  }else{
+    formData.append('radio', 'false');
+  }
+  formData.forEach((value, key) => {
+    console.log(`${key}: ${value}`);
+  });
+
+
   fetch('/submit', {
     method: 'POST',
     body: formData
@@ -34,4 +45,13 @@ function submitForm() {
   });
 }
 
+function toggleRadio(){
+  random_inputsDiv = document.getElementById('random-inputs');
+  radio = document.getElementById('radio-in-order');
+  if(radio.checked){
+    random_inputsDiv.style.display = 'none';
+  }else{
+    random_inputsDiv.style.display = 'block';
+  }
+}
 

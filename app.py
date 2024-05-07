@@ -2,6 +2,7 @@ import os
 import sys
 import csv
 import flask as fl
+import random
 
 def count_lines_in_csv(filename):
   with open(filename, 'r') as csv_file:
@@ -30,7 +31,14 @@ def home():
 
 @app.route('/submit', methods=['GET', 'POST'])
 def submit():
-    number = int(fl.request.form.get("number")) +1
+    radio = fl.request.form.get("radio")
+    if radio == "true":
+      number = int(fl.request.form.get("number")) +1
+    else:
+      from_number = int(fl.request.form.get("from-number"))
+      to_number = int(fl.request.form.get("to-number"))
+      number = random.randint(from_number, to_number)
+
     kanji, hiragana, definition, jlpt = get_line_content('static/N3Kanjies.csv', number)
     question = definition + "\n" + hiragana + "\n" + jlpt
     return fl.jsonify({"question": question, "answer": f"{kanji}", "number": f"{number}", "totalnumber": str(N3_KANJI_COUNT)})

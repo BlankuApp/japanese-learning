@@ -9,11 +9,32 @@
     {{ answer }}
   </div>
 </div>
-<form action="/" method="POST" id="submit-form" class="myForm">
-  <input type="button" id="changeButton" value="Show" onclick="toggleBtn()" class="btn">
-  <div style="display:flex; align-items: center; justify-content: center;">
-    <input type="text" name="number" id="number" class="myinput" value="1">
-    <label for="number"> / {{ totalnumber }}</label>
+<input type="button" id="changeButton" value="Show" onclick="toggleBtn()" class="btn">
+
+<div class="inline">
+  <div class="radio">
+    <input id="radio-in-order" name="radio" type="radio" checked onclick="toggleRadio()">
+    <label for="radio-in-order" class="radio-label">In Order</label>
+  </div>
+
+  <div class="radio">
+    <input id="radio-random" name="radio" type="radio" onclick="toggleRadio()">
+    <label  for="radio-random" class="radio-label">Random</label>
+  </div>
+</div>
+
+
+<form action="/" method="POST" id="submit-form">
+  <div class="inline" id="random-inputs" style="display: none;">
+    <label for="from-number">From</label>
+    <input type="text" name="from-number" id="from-number" class="myinput" value="1">
+    <label for="to-number">To</label>
+    <input type="text" name="to-number" id="to-number" class="myinput" value={{ totalnumber }}>
+  </div>
+  <div class="inline">
+      <label for="number">Card </label>
+      <input type="text" name="number" id="number" class="myinput" value="1">
+      <label for="number"> of {{ totalnumber }}</label>
   </div>
 </form>
 

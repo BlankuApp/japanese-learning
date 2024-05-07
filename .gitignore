@@ -1,3 +1,5 @@
 .venv
 .vscode
 .idx
+__pycache__/
+
