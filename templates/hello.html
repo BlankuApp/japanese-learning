@@ -26,25 +26,25 @@
           <!-- radios -->
           <div class="row justify-content-center">
             <div class="col-auto radio">
-              <input id="radio-in-order" name="radio" type="radio" checked onclick="toggleRadio()">
+              <input id="radio-in-order" name="radio" type="radio" {% if order == "inorder" %}checked{% endif %} onclick="toggleRadio()">
               <label for="radio-in-order" class="radio-label">In Order</label>
             </div>
             <div class="col-auto radio">
-              <input id="radio-random" name="radio" type="radio" onclick="toggleRadio()">
+              <input id="radio-random" name="radio" type="radio" {% if order == "random" %}checked{% endif %} onclick="toggleRadio()">
               <label  for="radio-random" class="radio-label">Random</label>
             </div>
           </div>
           <!-- form -->
           <form action="/" method="POST" id="submit-form" class="row">
-            <div class="inline" id="random-inputs" style="display: none;">
+            <div class="inline" id="random-inputs"  {% if order == "inorder" %}style="display: none;"{% endif %}>
               <label for="from-number">From</label>
-              <input type="text" name="from-number" id="from-number" class="myinput" value="1">
+              <input type="text" name="from-number" id="from-number" class="myinput" value="{{from_number}}">
               <label for="to-number">To</label>
-              <input type="text" name="to-number" id="to-number" class="myinput" value={{ totalnumber }}>
+              <input type="text" name="to-number" id="to-number" class="myinput" value={{to_number}}>
             </div>
             <div class="inline">
                 <label for="number">Card </label>
-                <input type="text" name="number" id="number" class="myinput" value="1">
+                <input type="text" name="number" id="number" class="myinput" value="{{number}}">
                 <label for="number"> of {{ totalnumber }}</label>
             </div>
           </form>

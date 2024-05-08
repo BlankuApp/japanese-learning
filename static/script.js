@@ -21,14 +21,10 @@ function submitForm() {
 
   radio = document.getElementById('radio-in-order');
   if(radio.checked){
-    formData.append('radio', 'true');
+    formData.append('radio', 'inorder');
   }else{
-    formData.append('radio', 'false');
+    formData.append('radio', 'random');
   }
-  formData.forEach((value, key) => {
-    console.log(`${key}: ${value}`);
-  });
-
 
   fetch('/submit', {
     method: 'POST',

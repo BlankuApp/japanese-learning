@@ -25,23 +25,33 @@ app = fl.Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def home():
-    kanji, hiragana, definition, jlpt = get_line_content('static/N3Kanjies.csv', 1)
+    number = int(fl.request.cookies.get('number', 1))
+    order = fl.request.cookies.get('order', 'inorder')
+    from_number = int(fl.request.cookies.get('from-number', 1))
+    to_number = int(fl.request.cookies.get('to-number', N3_KANJI_COUNT))
+    kanji, hiragana, definition, jlpt = get_line_content('static/N3Kanjies.csv', number)
     question = definition + "\n" + hiragana + "\n" + jlpt
-    return fl.render_template('hello.html', question=question.strip(), answer=kanji, totalnumber=str(N3_KANJI_COUNT))
+    resp = fl.make_response(fl.render_template('hello.html', question=question, answer=kanji, totalnumber=str(N3_KANJI_COUNT), number=number, order=order, from_number=from_number, to_number=to_number))
+    return resp
 
 @app.route('/submit', methods=['GET', 'POST'])
 def submit():
     radio = fl.request.form.get("radio")
-    if radio == "true":
+    from_number = int(fl.request.form.get("from-number"))
+    to_number = int(fl.request.form.get("to-number"))
+    if radio == "inorder":
       number = int(fl.request.form.get("number")) +1
     else:
-      from_number = int(fl.request.form.get("from-number"))
-      to_number = int(fl.request.form.get("to-number"))
       number = random.randint(from_number, to_number)
-
     kanji, hiragana, definition, jlpt = get_line_content('static/N3Kanjies.csv', number)
     question = definition + "\n" + hiragana + "\n" + jlpt
-    return fl.jsonify({"question": f"{question.strip()}", "answer": f"{kanji}", "number": f"{number}", "totalnumber": str(N3_KANJI_COUNT)})
+
+    resp = fl.jsonify({"question": f"{question.strip()}", "answer": f"{kanji}", "number": f"{number}", "totalnumber": str(N3_KANJI_COUNT)})
+    resp.set_cookie('number', str(number))
+    resp.set_cookie('order', radio)
+    resp.set_cookie('from-number', str(from_number))
+    resp.set_cookie('to-number', str(to_number))
+    return resp
 
 if __name__ == "__main__":
     app.run(port=int(os.environ.get('PORT', 80)), debug=True)
