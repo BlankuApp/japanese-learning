@@ -27,7 +27,7 @@ app = fl.Flask(__name__)
 def home():
     kanji, hiragana, definition, jlpt = get_line_content('static/N3Kanjies.csv', 1)
     question = definition + "\n" + hiragana + "\n" + jlpt
-    return fl.render_template('hello.html', question=question, answer=kanji, totalnumber=str(N3_KANJI_COUNT))
+    return fl.render_template('hello.html', question=question.strip(), answer=kanji, totalnumber=str(N3_KANJI_COUNT))
 
 @app.route('/submit', methods=['GET', 'POST'])
 def submit():
@@ -41,7 +41,7 @@ def submit():
 
     kanji, hiragana, definition, jlpt = get_line_content('static/N3Kanjies.csv', number)
     question = definition + "\n" + hiragana + "\n" + jlpt
-    return fl.jsonify({"question": question, "answer": f"{kanji}", "number": f"{number}", "totalnumber": str(N3_KANJI_COUNT)})
+    return fl.jsonify({"question": f"{question.strip()}", "answer": f"{kanji}", "number": f"{number}", "totalnumber": str(N3_KANJI_COUNT)})
 
 if __name__ == "__main__":
     app.run(port=int(os.environ.get('PORT', 80)), debug=True)
