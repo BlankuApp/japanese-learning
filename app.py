@@ -30,8 +30,7 @@ def home():
     from_number = int(fl.request.cookies.get('from-number', 1))
     to_number = int(fl.request.cookies.get('to-number', N3_KANJI_COUNT))
     kanji, hiragana, definition, jlpt = get_line_content('static/N3Kanjies.csv', number)
-    question = definition + "\n" + hiragana + "\n" + jlpt
-    resp = fl.make_response(fl.render_template('hello.html', question=question, answer=kanji, totalnumber=str(N3_KANJI_COUNT), number=number, order=order, from_number=from_number, to_number=to_number))
+    resp = fl.make_response(fl.render_template('hello.html', definition=definition, hiragana=hiragana, jlpt=jlpt, kanji=kanji, totalnumber=str(N3_KANJI_COUNT), number=number, order=order, from_number=from_number, to_number=to_number))
     return resp
 
 @app.route('/submit', methods=['GET', 'POST'])
@@ -44,9 +43,8 @@ def submit():
     else:
       number = random.randint(from_number, to_number)
     kanji, hiragana, definition, jlpt = get_line_content('static/N3Kanjies.csv', number)
-    question = definition + "\n" + hiragana + "\n" + jlpt
 
-    resp = fl.jsonify({"question": f"{question.strip()}", "answer": f"{kanji}", "number": f"{number}", "totalnumber": str(N3_KANJI_COUNT)})
+    resp = fl.jsonify({"kanji": f"{kanji}", "definition": f"{definition}", "hiragana": f"{hiragana}", "jlpt": f"{jlpt}", "number": f"{number}", "totalnumber": str(N3_KANJI_COUNT)})
     resp.set_cookie('number', str(number))
     resp.set_cookie('order', radio)
     resp.set_cookie('from-number', str(from_number))

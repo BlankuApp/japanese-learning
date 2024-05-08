@@ -1,21 +1,23 @@
 function toggleBtn() {
-  const answerDiv = document.getElementById('answer');
+  const kanjiDiv = document.getElementById('kanji');
   const changeButton = document.getElementById('changeButton');
 
   // Change button text and functionality
   if (changeButton.value === 'Show') {
     changeButton.value = 'Next';
-    answerDiv.style.backgroundColor = 'rgba(255, 255, 255, 0.45)';
+    kanjiDiv.style.backgroundColor = 'rgba(255, 255, 255, 0.45)';
   } else {
     changeButton.value = 'Show';
-    answerDiv.style.backgroundColor = 'black';
+    kanjiDiv.style.backgroundColor = 'black';
     submitForm();
   }
 }
 
 function submitForm() {
-  const answerDiv = document.getElementById('answer');
-  const questionDiv = document.getElementById('question');
+  const kanjiDiv = document.getElementById('kanji');
+  const definitionDiv = document.getElementById('definition');
+  const hiraganaDiv = document.getElementById('hiragana');
+  const jlptDiv = document.getElementById('jlpt');
   const numberDiv = document.getElementById('number');
   const formData = new FormData(document.getElementById('submit-form'));
 
@@ -32,8 +34,11 @@ function submitForm() {
   })
   .then(response => response.json())
   .then(data => {
-    answerDiv.textContent = data.answer;
-    questionDiv.textContent = data.question;
+    console.log(data);
+    kanjiDiv.textContent = data.kanji;
+    definitionDiv.textContent = data.definition;
+    hiraganaDiv.textContent = data.hiragana;
+    jlptDiv.textContent = data.jlpt;
     numberDiv.value = data.number;
   })
   .catch(error => {
@@ -51,3 +56,14 @@ function toggleRadio(){
   }
 }
 
+function goBtn(){
+  const kanjiDiv = document.getElementById('kanji');
+  kanjiDiv.style.backgroundColor = 'black';
+  const changeButton = document.getElementById('changeButton');
+  changeButton.value = 'Show';
+  numberDiv = document.getElementById('number');
+  number = parseInt(numberDiv.value);
+  number--;
+  numberDiv.value = number;
+  submitForm();
+}

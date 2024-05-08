@@ -87,8 +87,3 @@ pre {
   margin-right: 0;
 }
 
-.inline {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
