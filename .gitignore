@@ -2,4 +2,4 @@
 .vscode
 .idx
 __pycache__/
-
+.env
