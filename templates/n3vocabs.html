@@ -14,18 +14,15 @@
       <div class="col d-flex flex-column justify-content-center">
           <!-- question -->
           <div class="row mt-auto">
-            <div class="col card fs-3">
-              <div>
-                <span id="definition">{{definition}}</span>
-                <span id="jlpt" class="badge rounded-pill bg-danger">{{jlpt}}</span>
-              </div>              
-              <span id="hiragana">{{hiragana}}</span>
+            <div class="col card fs-1">
+                <span id="kanji">{{kanji}}</span>         
             </div>
           </div>
           <!-- answer -->
           <div class="row">
-            <div id="kanji" class="col card answer" style="background-color: black; font-size: 4em;">
-                {{ kanji }}
+            <div id="answer" class="col card answer fs-2" style="background-color: black;">
+              <span id="hiragana">{{hiragana}}</span>
+              <span id="definition">{{definition}}</span>
             </div>
           </div>
           <!-- radios -->
@@ -63,12 +60,8 @@
   </div>
 </div>
 
-
-
-
-
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-<script src="{{ url_for('static', filename='n3kanjies_script.js') }}"></script>
+<script src="{{ url_for('static', filename='n3vocabs_script.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -28,7 +28,7 @@ function submitForm() {
     formData.append('radio', 'random');
   }
 
-  fetch('/submit', {
+  fetch('/nextn3kanji', {
     method: 'POST',
     body: formData
   })
